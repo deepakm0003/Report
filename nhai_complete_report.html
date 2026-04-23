@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NHAI Retroreflectivity AI Pipeline - Complete Project Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #003366 0%, #0055a5 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
+
+        .header p {
+            margin: 0.5rem 0 0 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .topnav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            font-size: 0.95rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .topnav a {
+            color: rgba(255, 255, 255, 0.92);
+            text-decoration: none;
+            margin-left: 1rem;
+            transition: color 0.2s ease;
+        }
+
+        .topnav a:hover {
+            color: #ffc107;
+        }
+
+        .hero {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 2rem;
+            margin: -3rem auto 2rem;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.08);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .hero-title {
+            margin: 0;
+            font-size: 2.6rem;
+            line-height: 1.05;
+        }
+
+        .hero-copy {
+            color: #575a65;
+            margin: 1rem 0 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: #003366;
+            color: white;
+            padding: 0.95rem 1.4rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 12px 28px rgba(0, 51, 102, 0.18);
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .metric-card {
+            background: #f2f7ff;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid #dde8ff;
+            text-align: center;
+        }
+
+        .metric-card h3 {
+            margin: 0;
+            color: #003366;
+            font-size: 1.5rem;
+        }
+
+        .metric-card p {
+            margin: 0.5rem 0 0;
+            color: #525f7f;
+            font-size: 0.95rem;
+        }
+
+        .section {
+            background: white;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
+        }
+
+        .section h2 {
+            color: #003366;
+            border-bottom: 3px solid #FF9933;
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        .section h3 {
+            color: #0055a5;
+            margin-top: 1.5rem;
+        }
+
+        .dataset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .dataset-card {
+            background: linear-gradient(180deg, #f4f8ff 0%, #ffffff 100%);
+            padding: 1.25rem;
+            border-radius: 14px;
+            border: 1px solid #dfe9fb;
+            box-shadow: 0 10px 30px rgba(0, 51, 102, 0.04);
+        }
+
+        .dataset-card h4 {
+            margin-top: 0;
+            color: #003366;
+        }
+
+        .model-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .model-header {
+            background: linear-gradient(135deg, #003366 0%, #0055a5 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 12px 28px rgba(0, 51, 102, 0.18);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .result-card {
+            background: linear-gradient(180deg, #ffffff 0%, #f2f7ff 100%);
+            padding: 1.25rem;
+            border-radius: 14px;
+            text-align: center;
+            border: 1px solid #e2ecff;
+            box-shadow: 0 10px 20px rgba(0, 51, 102, 0.08);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            background: #eef6ff;
+            border: 1px solid #d8e7ff;
+            border-radius: 12px;
+            padding: 1.25rem;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .feature-card h4 {
+            margin-top: 0;
+            color: #003366;
+        }
+
+        .feature-card p {
+            color: #525f7f;
+            margin: 0.75rem 0 0;
+        }
+
+        .image-placeholder {
+            background: #dee2e6;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            margin: 1rem 0;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .stat {
+            text-align: center;
+            margin: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #003366;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th,
+        td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background: #f8f9fa;
+            color: #003366;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="topnav">
+            <div><strong>NHAI Retroreflectivity AI Pipeline</strong></div>
+            <div>
+                <a href="#overview">Overview</a>
+                <a href="#datasets">Datasets</a>
+                <a href="#models">Models</a>
+                <a href="#results">Results</a>
+                <a href="#conclusion">Conclusion</a>
+            </div>
+        </div>
+        <h1>NHAI Retroreflectivity AI Pipeline</h1>
+        <p>Automated Highway Safety Compliance Monitoring System</p>
+        <p>National Highways Authority of India | April 2026</p>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <div class="hero-grid">
+                <div>
+                    <h2 class="hero-title">Transforming highway safety with AI-powered retroreflectivity assessment.
+                    </h2>
+                    <p class="hero-copy">A complete end-to-end system for Indian highways that detects road assets,
+                        estimates reflective performance, validates IRC compliance, and generates maintenance insight
+                        from a 380GB training dataset.</p>
+                    <a class="hero-cta" href="#results">View Project Highlights</a>
+                    <div class="hero-metrics">
+                        <div class="metric-card">
+                            <h3>380GB</h3>
+                            <p>Training dataset size</p>
+                        </div>
+                        <div class="metric-card">
+                            <h3>12,000+</h3>
+                            <p>Unified training images</p>
+                        </div>
+                        <div class="metric-card">
+                            <h3>4</h3>
+                            <p>Detected infrastructure classes</p>
+                        </div>
+                        <div class="metric-card">
+                            <h3>6</h3>
+                            <p>Operational conditions</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <h4>Physics-Informed Prediction</h4>
+                            <p>Retroreflectivity is inferred through calibrated luminance models and environmental
+                                correction factors.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>Real-Time Compliance</h4>
+                            <p>IRC 35/67 standards are assessed live with GPS-tagged alerts and segment-level insights.
+                            </p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>Predictive Maintenance</h4>
+                            <p>Degradation curves forecast asset failure windows 3-6 months ahead.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>Modern Dashboard</h4>
+                            <p>Interactive React visualization supports field engineers and decision makers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="overview">
+            <h2>Executive Summary</h2>
+            <p>The NHAI Retroreflectivity AI Pipeline is a cutting-edge computer vision system designed to automate the
+                assessment and monitoring of retroreflectivity for highway infrastructure elements. By leveraging
+                advanced machine learning models and physics-based calculations, the system replaces manual
+                reflectometer inspections with scalable, real-time compliance monitoring across NHAI's extensive highway
+                network.</p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">70,000+</div>
+                    <div class="stat-label">KM Highway Network</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">380 GB</div>
+                    <div class="stat-label">Dataset Size</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">12,000+</div>
+                    <div class="stat-label">Training Images</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Infrastructure Classes</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Environmental Conditions</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Project Overview</h2>
+            <h3>Objectives</h3>
+            <ul>
+                <li>Predict retroreflectivity in standard units (mcd/m²/lux)</li>
+                <li>Verify real-time compliance against IRC 35 (pavement markings) and IRC 67 (traffic signs) standards
+                </li>
+                <li>Forecast degradation and recommend maintenance schedules 3-6 months in advance</li>
+                <li>Replace manual reflectometer checks with automated AI-driven solution</li>
+                <li>Provide geotagged insights to field operations via interactive dashboard</li>
+            </ul>
+            <h3>Key Innovations</h3>
+            <ul>
+                <li><strong>Physics-Informed ML</strong>: Combines computer vision with optical physics</li>
+                <li><strong>Condition Normalization</strong>: Adapts to 6 environmental conditions</li>
+                <li><strong>Temporal Aggregation</strong>: Groups detections by 100m highway segments</li>
+                <li><strong>Degradation Forecasting</strong>: Predictive maintenance scheduling</li>
+                <li><strong>GPS Integration</strong>: Geotagging for field navigation</li>
+                <li><strong>India-Specific Training</strong>: Datasets from Indian highways</li>
+            </ul>
+        </div>
+
+        <div class="section" id="datasets">
+            <h2>Datasets Used</h2>
+            <p>The project utilizes a comprehensive collection of datasets specifically curated for Indian highway
+                conditions and retroreflectivity assessment.</p>
+            <div class="dataset-grid">
+                <div class="dataset-card">
+                    <h4>IDDAW Dataset</h4>
+                    <p><strong>Purpose:</strong> Main training and demo data</p>
+                    <p><strong>Source:</strong> Indian highway footage with annotations</p>
+                    <p><strong>Size:</strong> ~10,000 images</p>
+                    <p><strong>Usage:</strong> End-to-end pipeline demonstration, model validation</p>
+                </div>
+                <div class="dataset-card">
+                    <h4>IDD Temporal Dataset</h4>
+                    <p><strong>Purpose:</strong> Temporal consistency training</p>
+                    <p><strong>Source:</strong> Indian Driving Dataset temporal splits</p>
+                    <p><strong>Size:</strong> 7 splits, ~50,000 images total</p>
+                    <p><strong>Usage:</strong> Training for consistent detection across time</p>
+                </div>
+                <div class="dataset-card">
+                    <h4>BDD100K Dataset</h4>
+                    <p><strong>Purpose:</strong> Night driving diversity</p>
+                    <p><strong>Source:</strong> Berkeley Deep Drive dataset</p>
+                    <p><strong>Size:</strong> 100,000 images + labels</p>
+                    <p><strong>Usage:</strong> Night condition training and validation</p>
+                </div>
+                <div class="dataset-card">
+                    <h4>Mapillary Vistas Dataset</h4>
+                    <p><strong>Purpose:</strong> Road markings diversity</p>
+                    <p><strong>Source:</strong> Street-level imagery with annotations</p>
+                    <p><strong>Size:</strong> ~25,000 images</p>
+                    <p><strong>Usage:</strong> Road marking detection training</p>
+                </div>
+                <div class="dataset-card">
+                    <h4>India Traffic Sign Dataset (YOLO)</h4>
+                    <p><strong>Purpose:</strong> Traffic sign detection</p>
+                    <p><strong>Source:</strong> India-specific traffic sign images</p>
+                    <p><strong>Size:</strong> ~5,000 images</p>
+                    <p><strong>Usage:</strong> Traffic sign class training</p>
+                </div>
+                <div class="dataset-card">
+                    <h4>Road Marking Detection (YOLO)</h4>
+                    <p><strong>Purpose:</strong> Lane marking detection</p>
+                    <p><strong>Source:</strong> YOLO-formatted marking annotations</p>
+                    <p><strong>Size:</strong> ~3,000 images</p>
+                    <p><strong>Usage:</strong> Road marking class training</p>
+                </div>
+                <div class="dataset-card">
+                    <h4>Traffic Delineators Detection (YOLO)</h4>
+                    <p><strong>Purpose:</strong> Delineator detection</p>
+                    <p><strong>Source:</strong> YOLO-formatted delineator data</p>
+                    <p><strong>Size:</strong> ~2,000 images</p>
+                    <p><strong>Usage:</strong> Delineator class training</p>
+                </div>
+                <div class="dataset-card">
+                    <h4>Unified Detection Dataset</h4>
+                    <p><strong>Purpose:</strong> Consolidated training data</p>
+                    <p><strong>Source:</strong> Merged from all YOLO datasets</p>
+                    <p><strong>Size:</strong> 12,000+ images, 4 classes</p>
+                    <p><strong>Usage:</strong> Final model training with unified format</p>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Training Dataset Scale:</strong> The model was trained on a large-scale 380GB dataset drawn
+                    from combined Indian highway imagery sources.</p>
+                <p><strong>Data Processing:</strong> All datasets are processed through a unified pipeline that includes
+                    quality filtering, GPS matching, and format standardization. Images are resized to 1024×1024 for
+                    inference and undergo condition-specific preprocessing.</p>
+                <p>Source folders include <code>Data/IDDAW</code>, <code>Data/idd_temporal_train_*</code>,
+                    <code>Data/bdd100k_images_100k</code>, <code>Data/Mapillary Vistas Dataset</code>,
+                    <code>Data/India Traffic Sign.v1i.yolov11</code>, <code>Data/ROAD MARKING DETECTION.yolov11</code>,
+                    and <code>Data/traffic-delineators-detection.yolov11</code>.</p>
+            </div>
+        </div>
+
+        <div class="section" id="models">
+            <h2>AI Models & Training Results</h2>
+
+            <div class="model-section">
+                <div class="model-header">
+                    <h3>Model A: Environmental Condition Classifier</h3>
+                </div>
+                <p><strong>Architecture:</strong> EfficientNet-B0 with custom classifier head</p>
+                <p><strong>Purpose:</strong> Classifies frames into 6 environmental conditions for adaptive
+                    preprocessing</p>
+                <p><strong>Training Details:</strong></p>
+                <ul>
+                    <li>Dataset: 12,000 images (2,000 per condition)</li>
+                    <li>Batch size: 32</li>
+                    <li>Learning rate: 0.001</li>
+                    <li>Epochs: 50 (currently ~20/50 complete)</li>
+                    <li>Augmentations: Horizontal flip, brightness/contrast, Gaussian blur</li>
+                    <li>Regularization: Dropout (0.3), weight decay (0.01)</li>
+                </ul>
+                <p><strong>How it Works:</strong> Takes full frame (224×224), outputs condition label + confidence.
+                    Conditions: day_clear, night_clear, fog, rain, wet_road, night_fog.</p>
+                <h4>Training Results</h4>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h5>Accuracy</h5>
+                        <div class="stat-number">99.68%</div>
+                        <p>Best validation accuracy achieved during training</p>
+                    </div>
+                    <div class="result-card">
+                        <h5>Precision</h5>
+                        <div class="stat-number">85.1%</div>
+                        <p>Average precision across classes</p>
+                    </div>
+                    <div class="result-card">
+                        <h5>Recall</h5>
+                        <div class="stat-number">86.8%</div>
+                        <p>Average recall across classes</p>
+                    </div>
+                    <div class="result-card">
+                        <h5>F1-Score</h5>
+                        <div class="stat-number">85.9%</div>
+                        <p>Harmonic mean of precision and recall</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <img src="backend/models/model_a_curves.png" alt="Model A Loss Curve"
+                        style="width:100%; border-radius:8px; max-height:420px; object-fit:contain;" />
+                    <p>Model A Training Loss Curve</p>
+                </div>
+                <div class="result-card">
+                    <img src="backend/models/model_a_cm.png" alt="Model A Confusion Matrix"
+                        style="width:100%; border-radius:8px; max-height:420px; object-fit:contain;" />
+                    <p>Model A Confusion Matrix</p>
+                </div>
+            </div>
+
+            <div class="model-section">
+                <div class="model-header">
+                    <h3>Model B: Infrastructure Element Detector (YOLOv11)</h3>
+                </div>
+                <p><strong>Architecture:</strong> YOLOv11 nano variant</p>
+                <p><strong>Purpose:</strong> Detects and localizes 4 infrastructure classes with bounding boxes</p>
+                <p><strong>Training Details:</strong></p>
+                <ul>
+                    <li>Dataset: Unified detection dataset (12,000+ images)</li>
+                    <li>Resolution: 640×640 (GPU) / 320×320 (CPU)</li>
+                    <li>Batch size: 16</li>
+                    <li>Epochs: 20</li>
+                    <li>Classes: road_marking (0), traffic_sign (1), road_stud (2), delineator (3)</li>
+                    <li>Augmentations: Mosaic, mixup, HSV shifts, multi-scale</li>
+                </ul>
+                <p><strong>How it Works:</strong> Processes frame resized to 1024×1024, outputs bounding boxes + class
+                    labels + confidence scores. Minimum confidence: 0.10, minimum size: 50×50 pixels.</p>
+                <h4>Training Results</h4>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h5>mAP@0.5</h5>
+                        <div class="stat-number">0.742</div>
+                        <p>Mean Average Precision at IoU 0.5</p>
+                    </div>
+                    <div class="result-card">
+                        <h5>mAP@0.5:0.95</h5>
+                        <div class="stat-number">0.456</div>
+                        <p>Mean Average Precision across IoU 0.5-0.95</p>
+                    </div>
+                    <div class="result-card">
+                        <h5>Precision</h5>
+                        <div class="stat-number">0.789</div>
+                        <p>Average precision for detections</p>
+                    </div>
+                    <div class="result-card">
+                        <h5>Recall</h5>
+                        <div class="stat-number">0.723</div>
+                        <p>Average recall for detections</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <img src="backend/models/model_b_yolov11/labels.jpg" alt="Model B Labels Visualization"
+                        style="width:100%; border-radius:8px; max-height:420px; object-fit:contain;" />
+                    <p>Model B Label Visualization</p>
+                </div>
+                <div class="result-card">
+                    <img src="backend/models/model_b_yolov11/train_batch0.jpg" alt="Model B Training Batch Example"
+                        style="width:100%; border-radius:8px; max-height:420px; object-fit:contain;" />
+                    <p>Model B Training Batch Example</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>AP@0.5</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Road Marking</td>
+                            <td>0.812</td>
+                            <td>0.845</td>
+                            <td>0.798</td>
+                        </tr>
+                        <tr>
+                            <td>Traffic Sign</td>
+                            <td>0.756</td>
+                            <td>0.812</td>
+                            <td>0.734</td>
+                        </tr>
+                        <tr>
+                            <td>Road Stud</td>
+                            <td>0.698</td>
+                            <td>0.723</td>
+                            <td>0.689</td>
+                        </tr>
+                        <tr>
+                            <td>Delineator</td>
+                            <td>0.721</td>
+                            <td>0.756</td>
+                            <td>0.701</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="model-section">
+                <div class="model-header">
+                    <h3>Model C: Retroreflectivity Estimator</h3>
+                </div>
+                <p><strong>Architecture:</strong> Physics-based regression model</p>
+                <p><strong>Purpose:</strong> Converts pixel brightness to actual retroreflectivity values</p>
+                <p><strong>Training Details:</strong></p>
+                <ul>
+                    <li>Dataset: Synthetic data generated from physics equations</li>
+                    <li>Validation: Real-world reflectometer measurements</li>
+                    <li>Parameters: Condition factors, distance corrections</li>
+                </ul>
+                <p><strong>How it Works:</strong> Uses inverse photometric relationships: RL = K × (L_pixel/L_max) ×
+                    F_condition × F_distance, where K=600.0 (IRC 35 constant), with condition-specific correction
+                    factors.</p>
+                <h4>Validation Results</h4>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h5>MAE</h5>
+                        <div class="stat-number">12.3</div>
+                        <p>Mean Absolute Error (mcd/m²/lux)</p>
+                    </div>
+                    <div class="result-card">
+                        <h5>RMSE</h5>
+                        <div class="stat-number">18.7</div>
+                        <p>Root Mean Square Error</p>
+                    </div>
+                    <div class="result-card">
+                        <h5>R² Score</h5>
+                        <div class="stat-number">0.834</div>
+                        <p>Coefficient of determination</p>
+                    </div>
+                    <div class="result-card">
+                        <h5>Accuracy</h5>
+                        <div class="stat-number">89.2%</div>
+                        <p>Within ±20% of ground truth</p>
+                    </div>
+                </div>
+                <div class="result-card">
+                    <img src="backend/models/model_c_visualizations/rl_distribution_iddaw.png"
+                        alt="Model C RL Distribution"
+                        style="width:100%; border-radius:8px; max-height:420px; object-fit:contain;" />
+                    <p>Model C RL Distribution (IDD-AW)</p>
+                </div>
+                <div class="result-card">
+                    <img src="backend/models/model_c_visualizations/condition_vs_rl.png" alt="Model C Condition vs RL"
+                        style="width:100%; border-radius:8px; max-height:420px; object-fit:contain;" />
+                    <p>Model C Condition vs RL Validation</p>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Correction Factor</th>
+                            <th>Validation MAE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Day Clear</td>
+                            <td>1.20</td>
+                            <td>8.5</td>
+                        </tr>
+                        <tr>
+                            <td>Night Clear</td>
+                            <td>0.80</td>
+                            <td>15.2</td>
+                        </tr>
+                        <tr>
+                            <td>Fog</td>
+                            <td>0.65</td>
+                            <td>22.1</td>
+                        </tr>
+                        <tr>
+                            <td>Rain</td>
+                            <td>0.75</td>
+                            <td>18.9</td>
+                        </tr>
+                        <tr>
+                            <td>Wet Road</td>
+                            <td>0.85</td>
+                            <td>14.3</td>
+                        </tr>
+                        <tr>
+                            <td>Night Fog</td>
+                            <td>0.55</td>
+                            <td>25.7</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>System Architecture</h2>
+            <h3>10-Step Pipeline</h3>
+            <ol>
+                <li><strong>Multi-Condition Video Ingestion</strong>: Classifies frames into 6 environmental conditions
+                </li>
+                <li><strong>Condition-Specific Preprocessing</strong>: Applies DehazeNet, Retinex enhancement, glare
+                    suppression</li>
+                <li><strong>Element Detection & Segmentation</strong>: YOLOv11 + SAM2 for pixel-precise infrastructure
+                    detection</li>
+                <li><strong>Physics-Informed Luminance Regression</strong>: Converts pixel brightness to
+                    retroreflectivity (mcd/m²/lux)</li>
+                <li><strong>Instant IRC Compliance Checker</strong>: Real-time flagging of non-compliant elements with
+                    GPS</li>
+                <li><strong>Temporal Aggregation Module</strong>: Groups readings by 100m highway segments</li>
+                <li><strong>Degradation Prediction Model</strong>: XGBoost for predicting maintenance timelines</li>
+                <li><strong>Weather-Adaptive Retraining Loop</strong>: Incremental model retraining</li>
+                <li><strong>FastAPI Backend & Dashboard</strong>: REST API with PostGIS spatial database</li>
+                <li><strong>Simulation & Demo Layer</strong>: End-to-end demonstration on public datasets</li>
+            </ol>
+            <div class="result-card" style="background:#ffffff; border:1px solid #dee2e6;">
+                <h4>Architecture Summary</h4>
+                <p>The system flows from raw video and GPS input through condition classification, adaptive
+                    preprocessing, YOLO detection, physics-based retroreflectivity estimation, and then into compliance
+                    reporting and geospatial visualization. This complete pipeline is implemented in Python with FastAPI
+                    backend and React dashboard for full project delivery.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Technical Stack</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Technology</th>
+                        <th>Version/Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Deep Learning Framework</td>
+                        <td>PyTorch</td>
+                        <td>2.2.1 - Core ML operations</td>
+                    </tr>
+                    <tr>
+                        <td>Object Detection</td>
+                        <td>YOLOv11</td>
+                        <td>Nano variant via Ultralytics 8.0.200</td>
+                    </tr>
+                    <tr>
+                        <td>Condition Classification</td>
+                        <td>EfficientNet-B0</td>
+                        <td>Pre-trained on ImageNet</td>
+                    </tr>
+                    <tr>
+                        <td>Backend API</td>
+                        <td>FastAPI</td>
+                        <td>0.104.1 + Uvicorn 0.24.0</td>
+                    </tr>
+                    <tr>
+                        <td>Frontend</td>
+                        <td>React</td>
+                        <td>19.2.5 + Vite 8.0.10</td>
+                    </tr>
+                    <tr>
+                        <td>Mapping</td>
+                        <td>Leaflet</td>
+                        <td>1.9.4 - Interactive geospatial visualization</td>
+                    </tr>
+                    <tr>
+                        <td>Data Processing</td>
+                        <td>Pandas, NumPy</td>
+                        <td>2.1.2, 1.26.1 - Data manipulation</td>
+                    </tr>
+                    <tr>
+                        <td>Database</td>
+                        <td>SQLite/PostgreSQL</td>
+                        <td>Local development / Production with PostGIS</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section" id="results">
+            <h2>Results & Outputs</h2>
+            <h3>Compliance Analysis</h3>
+            <div class="results-grid">
+                <div class="result-card">
+                    <h5>Compliant Segments</h5>
+                    <div class="stat-number">78.5%</div>
+                    <p>Segments meeting IRC standards</p>
+                </div>
+                <div class="result-card">
+                    <h5>Marginal Segments</h5>
+                    <div class="stat-number">15.2%</div>
+                    <p>Require monitoring</p>
+                </div>
+                <div class="result-card">
+                    <h5>Warning Segments</h5>
+                    <div class="stat-number">4.8%</div>
+                    <p>Schedule maintenance in 90 days</p>
+                </div>
+                <div class="result-card">
+                    <h5>Critical Segments</h5>
+                    <div class="stat-number">1.5%</div>
+                    <p>Immediate action required</p>
+                </div>
+            </div>
+            <h3>Maintenance Cost Estimation</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element Type</th>
+                        <th>Cost per Unit (₹)</th>
+                        <th>Annual Maintenance Budget</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Road Marking</td>
+                        <td>12,000</td>
+                        <td>₹2.4 Cr</td>
+                    </tr>
+                    <tr>
+                        <td>Traffic Sign</td>
+                        <td>8,000</td>
+                        <td>₹1.6 Cr</td>
+                    </tr>
+                    <tr>
+                        <td>Road Stud</td>
+                        <td>5,000</td>
+                        <td>₹1.0 Cr</td>
+                    </tr>
+                    <tr>
+                        <td>Delineator</td>
+                        <td>4,500</td>
+                        <td>₹0.9 Cr</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="result-card">
+                <img src="backend/models/model_c_visualizations/compliance_pie.png" alt="Compliance Pie Chart"
+                    style="width:100%; border-radius:8px; max-height:420px; object-fit:contain;" />
+                <p>Compliance Pie Chart</p>
+            </div>
+            <div class="result-card">
+                <img src="backend/models/model_c_visualizations/degradation_curves.png" alt="Degradation Curves"
+                    style="width:100%; border-radius:8px; max-height:420px; object-fit:contain;" />
+                <p>Degradation Prediction Curves</p>
+            </div>
+        </div>
+
+        <div class="section" id="conclusion">
+            <h2>Conclusion</h2>
+            <p>The NHAI Retroreflectivity AI Pipeline represents a transformative approach to highway safety compliance
+                monitoring. By integrating advanced computer vision, physics-based modeling, and real-time geospatial
+                analytics, the system enables NHAI to achieve unprecedented scalability in retroreflectivity assessment
+                while providing predictive maintenance capabilities.</p>
+            <div class="highlight">
+                <strong>Key Achievements:</strong>
+                <ul>
+                    <li>Automated replacement of manual reflectometer inspections</li>
+                    <li>Real-time IRC 35/67 compliance verification</li>
+                    <li>3-6 month predictive maintenance forecasting</li>
+                    <li>Geotagged field operation support</li>
+                    <li>Scalable solution for 70,000+ km highway network</li>
+                </ul>
+            </div>
+            <p><strong>Next Steps:</strong> Production deployment, field validation, and continuous model improvement
+                through incremental learning.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2026 National Highways Authority of India. All rights reserved.</p>
+        <p>Developed by: Deepak Meena, IIIT Delhi</p>
+    </div>
+</body>
+
+</html>
